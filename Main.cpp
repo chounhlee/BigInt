@@ -4,6 +4,8 @@ using namespace std;
 int main()
 {
 	cout << "Hello world!\n";
-	cout << "Why is this crap so slow?";
+	long long y = 1000;
+	BigInt x(y);
+	cout << x.getBigInt()[0] << endl;
 	return 0;
 }
