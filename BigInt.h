@@ -425,3 +425,16 @@ bool BigInt::operator!=(const BigInt& v) const {
 }
 
 // end of the overloaded operators
+
+// Beginning of hash code (my code)
+class BigIntHash {
+public:
+	size_t operator()(const BigInt& v) const {
+		string s = "";
+		stringstream ss;
+		ss << v;
+		ss >> s;
+		return hash<string>()(s);
+	}
+};
+// End of hash code 
