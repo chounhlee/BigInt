@@ -437,4 +437,4 @@ public:
 		return hash<string>()(s);
 	}
 };
-// End of hash code 
+// End of hash code (my code)
