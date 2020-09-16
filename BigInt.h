@@ -140,7 +140,16 @@ class BigInt
 		bool operator==(const BigInt& v) const;
 		bool operator!=(const BigInt& v) const;
 		//End of overloaded operators
+		// Start of my code
+		BigInt log(const BigInt& y) const;
+		BigInt pow(const BigInt& y) const;
+		BigInt pow(const BigInt& y, const BigInt& mod) const;
+		bool logIsInt(const BigInt& y) const;
+		// End of my code
 	private:
+		// Start of my code
+		BigInt helperLog(const BigInt& x, const BigInt& y) const;
+		// End of my code
 		vector<int> bigInt;
 		int sign;
 };
@@ -425,3 +434,57 @@ bool BigInt::operator!=(const BigInt& v) const {
 }
 
 // end of the overloaded operators
+
+// Start of my code
+BigInt BigInt::helperLog(const BigInt& x, const BigInt& y) const
+{
+	if (x > 1)
+	{
+		return BigInt("1") + helperLog((x / y), y);
+	}
+	else
+		return 0;
+}
+bool BigInt::logIsInt(const BigInt& y) const
+{
+	BigInt temp = *this;
+	while (temp > 1)
+	{
+		if ((temp % y) != 0)
+		{
+			return false;
+		}
+		temp /= y;
+	}
+	return true;
+}
+BigInt BigInt::log(const BigInt& y) const
+{
+	return helperLog(*this, y);
+}
+
+
+BigInt BigInt::pow(const BigInt& y) const
+{
+	BigInt temp;
+	if (y == 0)
+		return 1;
+	temp = pow(y / 2);
+	if (y % 2 == 0)
+		return temp * temp;
+	else
+		return *this * temp * temp;
+}
+
+BigInt BigInt::pow(const BigInt& y, const BigInt& mod) const
+{
+	BigInt temp;
+	if (y == 0)
+		return 1;
+	temp = pow(y / 2, mod);
+	if (y % 2 == 0)
+		return (temp * temp) % mod;
+	else
+		return (*this * temp * temp) % mod;
+}
+// End of My code
