@@ -437,20 +437,7 @@ bool BigInt::operator!=(const BigInt& v) const {
 
 // end of the overloaded operators
 
-<<<<<<< HEAD
-// Beginning of hash code (my code)
-class BigIntHash {
-public:
-	size_t operator()(const BigInt& v) const {
-		string s = "";
-		stringstream ss;
-		ss << v;
-		ss >> s;
-		return hash<string>()(s);
-	}
-};
-// End of hash code (my code)
-=======
+
 // Start of my code
 BigInt BigInt::helperLog(const BigInt& x, const BigInt& y) const
 {
@@ -585,4 +572,19 @@ bool BigInt::sqrtIsInt() const
 }
 
 // End of My code
->>>>>>> Math
+//>>>>>>> Math
+
+//<<<<<<< HEAD
+// Beginning of hash code (my code)
+class BigIntHash {
+public:
+	size_t operator()(const BigInt& v) const {
+		string s = "";
+		stringstream ss;
+		ss << v;
+		ss >> s;
+		return hash<string>()(s);
+	}
+};
+// End of hash code (my code)
+//=======
