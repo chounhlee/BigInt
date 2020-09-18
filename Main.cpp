@@ -5,16 +5,16 @@ using namespace std;
 int main()
 {
 	cout << "Hello world!\n";
-	string y = "2";
-	string x = "8";
-	string z = "5070602400912917605986812821504";
-	string mod = "13413519481471788";
-	BigInt a = z;
+	string x = "16";
+	string y = "16";
+	string z = "16";
+	string mod = "18446744073709551616";
+	BigInt a = x;
 	BigInt b = y;
-	BigInt c = x;
+	BigInt c = mod;
 	cout << a.pow(b) << endl;
-	cout << a.log(b) << endl;
-	cout << a.logIsInt(b) << endl;
-	cout << a.logIsInt(c) << endl;
+	cout << c.sqrtIsInt() << endl;
+	cout << c.sqrt() << endl;
+
 	return 0;
 }
