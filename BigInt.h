@@ -140,7 +140,18 @@ class BigInt
 		bool operator==(const BigInt& v) const;
 		bool operator!=(const BigInt& v) const;
 		//End of overloaded operators
+		// Start of my code
+		BigInt log(const BigInt& y) const;
+		BigInt pow(const BigInt& y) const;
+		BigInt pow(const BigInt& y, const BigInt& mod) const;
+		bool logIsInt(const BigInt& y) const;
+		BigInt sqrt() const;
+		bool sqrtIsInt() const;
+		// End of my code
 	private:
+		// Start of my code
+		BigInt helperLog(const BigInt& x, const BigInt& y) const;
+		// End of my code
 		vector<int> bigInt;
 		int sign;
 };
@@ -426,6 +437,7 @@ bool BigInt::operator!=(const BigInt& v) const {
 
 // end of the overloaded operators
 
+<<<<<<< HEAD
 // Beginning of hash code (my code)
 class BigIntHash {
 public:
@@ -438,3 +450,139 @@ public:
 	}
 };
 // End of hash code (my code)
+=======
+// Start of my code
+BigInt BigInt::helperLog(const BigInt& x, const BigInt& y) const
+{
+	if (x > 1)
+	{
+		return BigInt("1") + helperLog((x / y), y);
+	}
+	else
+		return 0;
+}
+bool BigInt::logIsInt(const BigInt& y) const
+{
+	BigInt temp = *this;
+	while (temp > 1)
+	{
+		if ((temp % y) != 0)
+		{
+			return false;
+		}
+		temp /= y;
+	}
+	return true;
+}
+BigInt BigInt::log(const BigInt& y) const
+{
+	return helperLog(*this, y);
+}
+
+
+BigInt BigInt::pow(const BigInt& y) const
+{
+	BigInt temp;
+	if (y == 0)
+		return 1;
+	temp = pow(y / 2);
+	if (y % 2 == 0)
+		return temp * temp;
+	else
+		return *this * temp * temp;
+}
+
+BigInt BigInt::pow(const BigInt& y, const BigInt& mod) const
+{
+	BigInt temp;
+	if (y == 0)
+		return 1;
+	temp = pow(y / 2, mod);
+	if (y % 2 == 0)
+		return (temp * temp) % mod;
+	else
+		return (*this * temp * temp) % mod;
+}
+
+BigInt BigInt::sqrt() const
+{
+	// Base cases 
+	if (*this == 0 || *this == 1)
+		return *this;
+
+	// Do Binary Search for floor(sqrt(x)) 
+	BigInt start("1"), end = *this, ans("0");
+	BigInt mid("0");
+	while (start <= end)
+	{
+		if (((start + end) % 2) != 0)
+		{
+			mid = (start + end) / 2;
+			mid = mid + 1;
+		}
+		else
+		{
+			mid = (start + end) / 2;
+		}
+
+		// If x is a perfect square 
+		if (mid * mid == *this)
+			return mid;
+
+		// Since we need floor, we update answer when mid*mid is  
+		// smaller than x, and move closer to sqrt(x) 
+		if (mid * mid < *this)
+		{
+			start = mid + 1;
+		}
+		else // If mid*mid is greater than x 
+		{
+			end = mid - 1;
+			ans = mid;
+		}
+	}
+	return ans;
+}
+
+bool BigInt::sqrtIsInt() const
+{
+	// Base cases  
+	if (*this == 0 || *this == 1)
+		return true;
+
+	// Do Binary Search for floor(sqrt(x)) 
+	BigInt start("1"), end = *this, ans("0");
+	BigInt mid("0");
+	while (start <= end)
+	{
+		if (((start + end) % 2) != 0)
+		{
+			mid = (start + end) / 2;
+			mid = mid + 1;
+		}
+		else
+		{
+			mid = (start + end) / 2;
+		}
+
+		// If x is a perfect square 
+		if (mid * mid == *this)
+			return true;
+
+		// Since we need floor, we update answer when mid*mid is  
+		// smaller than x, and move closer to sqrt(x) 
+		if (mid * mid < *this)
+		{
+			start = mid + 1;
+		}
+		else // If mid*mid is greater than x 
+		{
+			end = mid - 1;
+			ans = mid;
+		}
+	}
+	return false;
+}
+
+// End of My code
+>>>>>>> Math
